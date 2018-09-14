@@ -2,6 +2,9 @@
 #include <exception>
 #include <iostream>
 #include <memory>
+#include <string>
+#include <sstream>
+#include <fstream>
 
 #include <SDL2/SDL.h>
 #include <GL/glew.h>
