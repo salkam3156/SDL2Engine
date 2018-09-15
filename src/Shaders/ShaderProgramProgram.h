@@ -1,5 +1,6 @@
 #pragma once
 #include "../StandardHeader.h"
+#include "ShaderUtils/ShaderLogPrinter.h"
 
 class ShaderException : public std::runtime_error
 {
@@ -7,10 +8,10 @@ public:
 	ShaderException(const std::string& exceptionMsg) : std::runtime_error(exceptionMsg) {}
 };
 
-class Shader
+class ShaderProgram
 {
 public:
-	Shader(std::string vertexShaderFilePath, std::string fragmentShaderFilePath);
+	ShaderProgram(std::string vertexShaderFilePath, std::string fragmentShaderFilePath);
 	bool Use();
 
 private:

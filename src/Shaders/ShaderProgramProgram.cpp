@@ -1,6 +1,6 @@
-#include "Shader.h"
+#include "ShaderProgramProgram.h"
 
-Shader::Shader(std::string vertexShaderFilePath, std::string fragmentShaderFilePath)
+ShaderProgram::ShaderProgram(std::string vertexShaderFilePath, std::string fragmentShaderFilePath)
 : _ready(false)
 {
 	_vertexShaderPath = vertexShaderFilePath;
@@ -23,7 +23,7 @@ Shader::Shader(std::string vertexShaderFilePath, std::string fragmentShaderFileP
 	}
 }
 
-bool Shader::Use()
+bool ShaderProgram::Use()
 {
 	if(_ready)
 	{
@@ -36,12 +36,12 @@ bool Shader::Use()
 	}
 }
 
-bool Shader::Ready()
+bool ShaderProgram::Ready()
 {
 	return _ready;
 }
 
-int Shader::Load()
+int ShaderProgram::Load()
 {
 	_vertexShaderFile.open(_vertexShaderPath, std::ios::in);
 	//TODO: file not open exception
@@ -66,11 +66,8 @@ int Shader::Load()
 	return 0;
 }
 
-int Shader::Compile()
+int ShaderProgram::Compile()
 {
-
-
-
 	glewExperimental = GLU_TRUE;
 	auto glewInitRet = glewInit();
 	auto tempVertexSrc = _vertexShaderProgramString.c_str();
@@ -79,45 +76,23 @@ int Shader::Compile()
 	_vertexShaderId = glCreateShader(GL_VERTEX_SHADER);
 
 	glShaderSource(_vertexShaderId, 1, &tempVertexSrc, 0);
-	GLint vertexCompiled;
 	glCompileShader(_vertexShaderId);
-	glGetShaderiv(_vertexShaderId, GL_COMPILE_STATUS, &vertexCompiled);
 
-	if(vertexCompiled == false)
-	{
-		size_t maxLength;
-		glGetShaderiv(_vertexShaderId , GL_INFO_LOG_LENGTH, reinterpret_cast<GLint*>(&maxLength));
-		std::string vertexCompileLog;
-		vertexCompileLog.resize(maxLength + 1);
-		glGetShaderInfoLog(_vertexShaderId, maxLength, reinterpret_cast<GLsizei*>(&maxLength),&vertexCompileLog.at(0));
-		std::cout << vertexCompileLog << std::endl;
-		return -1;
-	}
+	ShaderLogPrinter::PrintLog(_vertexShaderId);
 
 	auto tempFragmentSrc = _fragmentShaderProgramString.c_str();
 
 	_fragmentShaderId = glCreateShader(GL_FRAGMENT_SHADER);
 
 	glShaderSource(_fragmentShaderId, 1, &tempFragmentSrc, 0);
-	GLint fragmentCompiled;
 	glCompileShader(_fragmentShaderId);
-	glGetShaderiv(_fragmentShaderId, GL_COMPILE_STATUS, &fragmentCompiled);
 
-	if(fragmentCompiled == false)
-	{
-		size_t maxLength;
-		glGetShaderiv(_fragmentShaderId , GL_INFO_LOG_LENGTH, reinterpret_cast<GLint*>(&maxLength));
-		std::string fragmentCompileLog;
-		fragmentCompileLog.resize(maxLength + 1);
-		glGetShaderInfoLog(_fragmentShaderId, maxLength, reinterpret_cast<GLsizei*>(&maxLength),&fragmentCompileLog.at(0));
-		std::cout << fragmentCompileLog << std::endl;
-		return -1;
-	}
+	ShaderLogPrinter::PrintLog(_fragmentShaderId);
 
 	return 0;
 }
 
-int Shader::Link()
+int ShaderProgram::Link()
 {
 	_compiledProgramId = glCreateProgram();
 
