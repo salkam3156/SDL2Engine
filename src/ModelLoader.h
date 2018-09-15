@@ -1,8 +1,7 @@
 #pragma once
 #include "StandardHeader.h"
 
-class ModelLoader
-{
+class ModelLoader {
 public:
 	void Load(std::string modelFile);
 };

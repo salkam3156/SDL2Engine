@@ -1,61 +1,51 @@
 #include "ShaderProgramProgram.h"
 
-ShaderProgram::ShaderProgram(std::string vertexShaderFilePath, std::string fragmentShaderFilePath)
-: _ready(false)
-{
+ShaderProgram::ShaderProgram(std::string vertexShaderFilePath,
+		std::string fragmentShaderFilePath) :
+		_ready(false) {
 	_vertexShaderPath = vertexShaderFilePath;
 	_fragmentShaderPath = fragmentShaderFilePath;
 
-	try
-	{
-		if(Load() != 0 || Compile() != 0 || Link() != 0)
-		{
+	try {
+		if (Load() != 0 || Compile() != 0 || Link() != 0) {
 			throw ShaderException("Error loading shader file");
-		}
-		else
-		{
+		} else {
 			_ready = true;
 		}
-	}
-	catch(ShaderException& ex)
-	{
+	} catch (ShaderException& ex) {
 		std::cout << ex.what() << std::endl;
 	}
 }
 
-bool ShaderProgram::Use()
-{
-	if(_ready)
-	{
+bool ShaderProgram::Use() {
+	if (_ready) {
 		glUseProgram(_compiledProgramId);
 		return true;
-	}
-	else
-	{
+	} else {
 		return false;
 	}
 
 }
 
-bool ShaderProgram::Ready()
-{
+GLint ShaderProgram::GetAttribute(std::string attribName) {
+	glGetAttribLocation(_compiledProgramId, attribName.c_str());
+}
+
+bool ShaderProgram::Ready() {
 	return _ready;
 }
 
-int ShaderProgram::Load()
-{
+int ShaderProgram::Load() {
 	_vertexShaderFile.open(_vertexShaderPath, std::ios::in);
 	//TODO: file not open exception
-	if(!_vertexShaderFile)
-	{
+	if (!_vertexShaderFile) {
 		return -1;
 	}
 	// TODO: refactor , proper error codes and returns
 	_vertexShaderStream << _vertexShaderFile.rdbuf();
 
 	_fragmentShaderFile.open(_fragmentShaderPath, std::ios::in);
-	if(!_fragmentShaderFile)
-	{
+	if (!_fragmentShaderFile) {
 		return -1;
 	}
 
@@ -67,8 +57,7 @@ int ShaderProgram::Load()
 	return 0;
 }
 
-int ShaderProgram::Compile()
-{
+int ShaderProgram::Compile() {
 	auto tempVertexSrc = _vertexShaderProgramString.c_str();
 	auto version = glGetString(GL_VERSION);
 	//TODO: extract these into a method
@@ -91,8 +80,7 @@ int ShaderProgram::Compile()
 	return 0;
 }
 
-int ShaderProgram::Link()
-{
+int ShaderProgram::Link() {
 	_compiledProgramId = glCreateProgram();
 
 	glAttachShader(_compiledProgramId, _vertexShaderId);

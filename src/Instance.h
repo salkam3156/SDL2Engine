@@ -3,17 +3,14 @@
 #include "Window.h"
 #include "Interfaces/IGameState.h"
 
-
-class InstanceException : public std::runtime_error
-{
+class InstanceException: public std::runtime_error {
 public:
-	InstanceException(const std::string& errorMsg) : std::runtime_error(errorMsg)
-	{
+	InstanceException(const std::string& errorMsg) :
+			std::runtime_error(errorMsg) {
 	}
 };
 
-class Instance
-{
+class Instance {
 private:
 	Instance();
 	Instance(const Instance&) = delete;
@@ -26,7 +23,7 @@ public:
 	void Run();
 	void Stop();
 
-	template <typename T>
+	template<typename T>
 	void SetState();
 
 private:

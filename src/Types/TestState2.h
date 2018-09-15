@@ -4,8 +4,7 @@
 #include "../Interfaces/IGameState.h"
 #include "TestState.h"
 
-class TestState2 : public IGameState
-{
+class TestState2: public IGameState {
 public:
 	TestState2();
 	~TestState2();

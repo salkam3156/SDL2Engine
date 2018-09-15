@@ -1,13 +1,10 @@
 #pragma once
 
-enum class ReturnCode
-{
-	SUCCESS,
-	FAILURE
+enum class ReturnCode {
+	SUCCESS, FAILURE
 };
 
-class IInitializer
-{
+class IInitializer {
 public:
 	virtual ReturnCode Initialize() = 0;
 	virtual ~IInitializer();

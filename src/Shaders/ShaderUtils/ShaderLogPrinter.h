@@ -1,21 +1,16 @@
 #pragma once
 #include "../../StandardHeader.h"
 
-enum class OperationType
-{
-	COMPILE,
-	LINK
+enum class OperationType {
+	COMPILE, LINK
 };
 
-class ShaderLogPrinter
-{
+class ShaderLogPrinter {
 public:
-	static void PrintLog(GLuint shaderId, OperationType opType)
-	{
+	static void PrintLog(GLuint shaderId, OperationType opType) {
 		GLint success;
 
-		switch(opType)
-		{
+		switch (opType) {
 		case OperationType::COMPILE:
 			glGetShaderiv(shaderId, GL_COMPILE_STATUS, &success);
 			break;
@@ -24,13 +19,14 @@ public:
 			break;
 		}
 
-		if(success == false)
-		{
+		if (success == false) {
 			size_t maxLength;
-			glGetShaderiv(shaderId , GL_INFO_LOG_LENGTH, reinterpret_cast<GLint*>(&maxLength));
+			glGetShaderiv(shaderId, GL_INFO_LOG_LENGTH,
+					reinterpret_cast<GLint*>(&maxLength));
 			std::string shaderLog;
 			shaderLog.resize(maxLength + 1);
-			glGetShaderInfoLog(shaderId, maxLength, reinterpret_cast<GLsizei*>(&maxLength),&shaderLog.at(0));
+			glGetShaderInfoLog(shaderId, maxLength,
+					reinterpret_cast<GLsizei*>(&maxLength), &shaderLog.at(0));
 			std::cout << shaderLog << std::endl;
 		}
 

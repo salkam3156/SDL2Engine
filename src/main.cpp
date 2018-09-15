@@ -9,16 +9,15 @@
 //TODO: model loader
 //TODO: input handler
 
-int main(int argc, char* args[])
-{
+int main(int argc, char* args[]) {
 	int retVal = 0;
 
 	auto instance = Instance::GetInstance();
-	ShaderProgram shader = ShaderProgram("res/vertex.shader", "res/fragment.shader");
+	ShaderProgram shader = ShaderProgram("res/vertex.shader",
+			"res/fragment.shader");
 	shader.Use();
 
-	while(instance->Running())
-	{
+	while (instance->Running()) {
 		instance->Run();
 	}
 

@@ -4,8 +4,7 @@
 #include "../Interfaces/IGameState.h"
 #include "TestState2.h"
 
-class TestState : public IGameState
-{
+class TestState: public IGameState {
 public:
 	TestState();
 	~TestState();
@@ -14,5 +13,5 @@ public:
 	bool Destroy() override;
 
 private:
-Instance* _applicationInstance = nullptr;
+	Instance* _applicationInstance = nullptr;
 };

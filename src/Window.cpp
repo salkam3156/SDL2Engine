@@ -2,7 +2,6 @@
 
 void Window::ClearScreen() {
 
-
 }
 
 void Window::InitWindow(const std::string& windowTitle) {

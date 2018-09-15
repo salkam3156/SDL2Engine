@@ -2,18 +2,21 @@
 #include "../StandardHeader.h"
 #include "ShaderUtils/ShaderLogPrinter.h"
 
-class ShaderException : public std::runtime_error
-{
+class ShaderException: public std::runtime_error {
 public:
-	ShaderException(const std::string& exceptionMsg) : std::runtime_error(exceptionMsg) {}
+	ShaderException(const std::string& exceptionMsg) :
+			std::runtime_error(exceptionMsg) {
+	}
 };
 
-class ShaderProgram
-{
+class ShaderProgram {
 public:
-	ShaderProgram(std::string vertexShaderFilePath, std::string fragmentShaderFilePath);
+	using ShaderProgramPtr = std::unique_ptr<ShaderProgram>;
+
+	ShaderProgram(std::string vertexShaderFilePath,
+			std::string fragmentShaderFilePath);
 	bool Use();
-	void GetAttribute();
+	GLint GetAttribute(std::string attribName);
 
 private:
 	bool Ready();
@@ -22,20 +25,14 @@ private:
 	int Link();
 
 private:
-	std::ifstream 	_vertexShaderFile,
-					_fragmentShaderFile;
+	std::ifstream _vertexShaderFile, _fragmentShaderFile;
 
-	std::string 	_vertexShaderPath,
-					_fragmentShaderPath,
-					_vertexShaderProgramString,
-					_fragmentShaderProgramString;
+	std::string _vertexShaderPath, _fragmentShaderPath,
+			_vertexShaderProgramString, _fragmentShaderProgramString;
 
-	std::stringstream 	_vertexShaderStream,
-						_fragmentShaderStream;
+	std::stringstream _vertexShaderStream, _fragmentShaderStream;
 
-	GLuint 	_vertexShaderId,
-			_fragmentShaderId,
-			_compiledProgramId;
+	GLuint _vertexShaderId, _fragmentShaderId, _compiledProgramId;
 
 	bool _ready;
 };
