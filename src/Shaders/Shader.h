@@ -20,11 +20,11 @@ private:
 	std::string _vertexShaderPath;
 	std::string _fragmentShaderPath;
 
-	std::stringstream _vertexShaderText;
-	std::stringstream _fragmentShaderText;
+	std::stringstream _vertexShaderStream;
+	std::stringstream _fragmentShaderStream;
 
-	std::string _vertexShaderProgram;
-	std::string _fragmentShaderProgram;
+	std::string _vertexShaderProgramString;
+	std::string _fragmentShaderProgramString;
 
 	GLuint _vertexShaderId;
 	GLuint _fragmentShaderId;
