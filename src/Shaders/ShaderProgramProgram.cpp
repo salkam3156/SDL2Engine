@@ -78,7 +78,7 @@ int ShaderProgram::Compile()
 	glShaderSource(_vertexShaderId, 1, &tempVertexSrc, 0);
 	glCompileShader(_vertexShaderId);
 
-	ShaderLogPrinter::PrintLog(_vertexShaderId);
+	ShaderLogPrinter::PrintLog(_vertexShaderId, OperationType::COMPILE);
 
 	auto tempFragmentSrc = _fragmentShaderProgramString.c_str();
 
@@ -87,7 +87,7 @@ int ShaderProgram::Compile()
 	glShaderSource(_fragmentShaderId, 1, &tempFragmentSrc, 0);
 	glCompileShader(_fragmentShaderId);
 
-	ShaderLogPrinter::PrintLog(_fragmentShaderId);
+	ShaderLogPrinter::PrintLog(_fragmentShaderId, OperationType::COMPILE);
 
 	return 0;
 }
@@ -101,18 +101,7 @@ int ShaderProgram::Link()
 
 	glLinkProgram(_compiledProgramId);
 
-	GLint linked;
-	glGetProgramiv(_compiledProgramId, GL_LINK_STATUS, &linked);
-	if(linked != 0)
-	{
-		size_t maxLength;
-		glGetProgramiv(_compiledProgramId , GL_INFO_LOG_LENGTH, reinterpret_cast<GLint*>(&maxLength));
-		std::string programLinkedLog;
-		programLinkedLog.resize(maxLength + 1);
-		glGetProgramInfoLog(_compiledProgramId, maxLength, reinterpret_cast<GLsizei*>(&maxLength),&programLinkedLog.at(0));
-		return -1;
-	}
-
+	ShaderLogPrinter::PrintLog(_compiledProgramId, OperationType::LINK);
 
 	return 0;
 }
