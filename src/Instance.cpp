@@ -65,6 +65,7 @@ void Instance::Run()
 		  	{
 		  		_gameState->Update(event.key.keysym.sym);
 		  	}
+		   break;
 		default:
 			break;
 		}

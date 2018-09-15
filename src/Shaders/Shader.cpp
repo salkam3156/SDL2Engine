@@ -37,7 +37,7 @@ int Shader::Load()
 {
 	_vertexShaderFile.open(_vertexShaderPath, std::ios::in);
 	//TODO: file not open exception
-	if(!_fragmentShaderFile)
+	if(!_vertexShaderFile)
 	{
 		return -1;
 	}
@@ -60,6 +60,8 @@ int Shader::Load()
 
 int Shader::Compile()
 {
+	//glewExperimental = GLU_TRUE;
+	auto glewInitRet = glewInit();
 	auto tempVertexSrc = _vertexShaderProgramString.c_str();
 	//auto tempFragmentSrc = _fragmentShaderProgramString.c_str();
 
@@ -68,6 +70,7 @@ int Shader::Compile()
 	glShaderSource(_vertexShaderId, 1, &tempVertexSrc, 0);
 	GLint compiled;
 	glGetShaderiv(_vertexShaderId, GL_COMPILE_STATUS, &compiled);
+
 
 	return 0;
 }

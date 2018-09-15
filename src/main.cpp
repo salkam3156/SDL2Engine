@@ -4,11 +4,14 @@
 #include "Shaders/Shader.h"
 
 //TODO: create logging class
+//TODO: resource factory
+
 int main(int argc, char* args[])
 {
 	int retVal = 0;
-	Shader shader{"Shaders/ShaderResources/vertex.shader", "Shaders/ShaderResources/fragment.shader"};
+
 	auto instance = Instance::GetInstance();
+	Shader shader = Shader("ShaderResources/vertex.shader", "ShaderResources/fragment.shader");
 
 	while(instance->Running())
 	{
