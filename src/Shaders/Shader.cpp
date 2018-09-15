@@ -25,12 +25,20 @@ Shader::Shader(std::string vertexShaderFilePath, std::string fragmentShaderFileP
 
 bool Shader::Use()
 {
-	return true;
+	if(_ready)
+	{
+		glUseProgram(_compiledProgramId);
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 bool Shader::Ready()
 {
-	return true;
+	return _ready;
 }
 
 int Shader::Load()
@@ -60,22 +68,76 @@ int Shader::Load()
 
 int Shader::Compile()
 {
-	//glewExperimental = GLU_TRUE;
+
+
+
+	glewExperimental = GLU_TRUE;
 	auto glewInitRet = glewInit();
 	auto tempVertexSrc = _vertexShaderProgramString.c_str();
-	//auto tempFragmentSrc = _fragmentShaderProgramString.c_str();
-
+	auto version = glGetString(GL_VERSION);
+	//TODO: extract these into a method
 	_vertexShaderId = glCreateShader(GL_VERTEX_SHADER);
 
 	glShaderSource(_vertexShaderId, 1, &tempVertexSrc, 0);
-	GLint compiled;
-	glGetShaderiv(_vertexShaderId, GL_COMPILE_STATUS, &compiled);
+	GLint vertexCompiled;
+	glCompileShader(_vertexShaderId);
+	glGetShaderiv(_vertexShaderId, GL_COMPILE_STATUS, &vertexCompiled);
 
+	if(vertexCompiled == false)
+	{
+		size_t maxLength;
+		glGetShaderiv(_vertexShaderId , GL_INFO_LOG_LENGTH, reinterpret_cast<GLint*>(&maxLength));
+		std::string vertexCompileLog;
+		vertexCompileLog.resize(maxLength + 1);
+		glGetShaderInfoLog(_vertexShaderId, maxLength, reinterpret_cast<GLsizei*>(&maxLength),&vertexCompileLog.at(0));
+		std::cout << vertexCompileLog << std::endl;
+		return -1;
+	}
+
+	auto tempFragmentSrc = _fragmentShaderProgramString.c_str();
+
+	_fragmentShaderId = glCreateShader(GL_FRAGMENT_SHADER);
+
+	glShaderSource(_fragmentShaderId, 1, &tempFragmentSrc, 0);
+	GLint fragmentCompiled;
+	glCompileShader(_fragmentShaderId);
+	glGetShaderiv(_fragmentShaderId, GL_COMPILE_STATUS, &fragmentCompiled);
+
+	if(fragmentCompiled == false)
+	{
+		size_t maxLength;
+		glGetShaderiv(_fragmentShaderId , GL_INFO_LOG_LENGTH, reinterpret_cast<GLint*>(&maxLength));
+		std::string fragmentCompileLog;
+		fragmentCompileLog.resize(maxLength + 1);
+		glGetShaderInfoLog(_fragmentShaderId, maxLength, reinterpret_cast<GLsizei*>(&maxLength),&fragmentCompileLog.at(0));
+		std::cout << fragmentCompileLog << std::endl;
+		return -1;
+	}
 
 	return 0;
 }
 
 int Shader::Link()
 {
+	_compiledProgramId = glCreateProgram();
+
+	glAttachShader(_compiledProgramId, _vertexShaderId);
+	glAttachShader(_compiledProgramId, _fragmentShaderId);
+
+	glLinkProgram(_compiledProgramId);
+
+	GLint linked;
+	glGetProgramiv(_compiledProgramId, GL_LINK_STATUS, &linked);
+	if(linked != 0)
+	{
+		size_t maxLength;
+		glGetProgramiv(_compiledProgramId , GL_INFO_LOG_LENGTH, reinterpret_cast<GLint*>(&maxLength));
+		std::string programLinkedLog;
+		programLinkedLog.resize(maxLength + 1);
+		glGetProgramInfoLog(_compiledProgramId, maxLength, reinterpret_cast<GLsizei*>(&maxLength),&programLinkedLog.at(0));
+		return -1;
+	}
+
+
 	return 0;
 }

@@ -14,6 +14,12 @@ public:
 	bool Use();
 
 private:
+	bool Ready();
+	int Load();
+	int Compile();
+	int Link();
+
+private:
 	std::ifstream _vertexShaderFile;
 	std::ifstream _fragmentShaderFile;
 
@@ -31,10 +37,4 @@ private:
 	GLuint _compiledProgramId;
 
 	bool _ready;
-
-	bool Ready();
-	int Load();
-	int Compile();
-	int Link();
-
 };
