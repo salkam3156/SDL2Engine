@@ -2,6 +2,8 @@
 
 #include "StandardHeader.h"
 
+//TODO: extract into a base class for all of the exceptions
+
 class WindowException : public std::runtime_error
 {
 public:
@@ -12,6 +14,7 @@ public:
 
 class Window
 {
+	using WindowPtr = std::unique_ptr<SDL_Window*, decltype(&SDL_DestroyWindow)>;
 public:
 
 	Window(const std::string& windowTitle);

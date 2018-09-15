@@ -1,10 +1,16 @@
 #pragma once
 #include "../StandardHeader.h"
 
+class ShaderException : public std::runtime_error
+{
+public:
+	ShaderException(const std::string& exceptionMsg) : std::runtime_error(exceptionMsg) {}
+};
+
 class Shader
 {
 public:
-	Shader(std::string vertexShaderFile, std::string fragmentShaderFile);
+	Shader(std::string vertexShaderFilePath, std::string fragmentShaderFilePath);
 	bool Use();
 
 private:
@@ -23,6 +29,8 @@ private:
 	GLuint _vertexShaderId;
 	GLuint _fragmentShaderId;
 	GLuint _compiledProgramId;
+
+	bool _ready;
 
 	bool Ready();
 	int Load();
