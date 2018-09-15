@@ -11,7 +11,7 @@ int main(int argc, char* args[])
 	int retVal = 0;
 
 	auto instance = Instance::GetInstance();
-	Shader shader = Shader("ShaderResources/vertex.shader", "ShaderResources/fragment.shader");
+	Shader shader = Shader("res/vertex.shader", "res/fragment.shader");
 
 	while(instance->Running())
 	{
