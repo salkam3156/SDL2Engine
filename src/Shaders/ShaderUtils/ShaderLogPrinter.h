@@ -21,6 +21,7 @@ public:
 			break;
 		case OperationType::LINK:
 			glGetShaderiv(shaderId, GL_LINK_STATUS, &success);
+			break;
 		}
 
 		if(success == false)

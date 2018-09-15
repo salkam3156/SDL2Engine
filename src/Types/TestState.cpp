@@ -12,7 +12,7 @@ TestState::~TestState()
 
 bool TestState::Init()
 {
-	glClearColor(0, 255, 0, 1);
+	glClearColor(0, 255, 255, 1);
 	return true;
 }
 

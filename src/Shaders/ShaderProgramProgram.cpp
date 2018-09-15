@@ -34,6 +34,7 @@ bool ShaderProgram::Use()
 	{
 		return false;
 	}
+
 }
 
 bool ShaderProgram::Ready()
@@ -68,8 +69,6 @@ int ShaderProgram::Load()
 
 int ShaderProgram::Compile()
 {
-	glewExperimental = GLU_TRUE;
-	auto glewInitRet = glewInit();
 	auto tempVertexSrc = _vertexShaderProgramString.c_str();
 	auto version = glGetString(GL_VERSION);
 	//TODO: extract these into a method

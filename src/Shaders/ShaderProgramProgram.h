@@ -13,6 +13,7 @@ class ShaderProgram
 public:
 	ShaderProgram(std::string vertexShaderFilePath, std::string fragmentShaderFilePath);
 	bool Use();
+	void GetAttribute();
 
 private:
 	bool Ready();
@@ -21,21 +22,20 @@ private:
 	int Link();
 
 private:
-	std::ifstream _vertexShaderFile;
-	std::ifstream _fragmentShaderFile;
+	std::ifstream 	_vertexShaderFile,
+					_fragmentShaderFile;
 
-	std::string _vertexShaderPath;
-	std::string _fragmentShaderPath;
+	std::string 	_vertexShaderPath,
+					_fragmentShaderPath,
+					_vertexShaderProgramString,
+					_fragmentShaderProgramString;
 
-	std::stringstream _vertexShaderStream;
-	std::stringstream _fragmentShaderStream;
+	std::stringstream 	_vertexShaderStream,
+						_fragmentShaderStream;
 
-	std::string _vertexShaderProgramString;
-	std::string _fragmentShaderProgramString;
-
-	GLuint _vertexShaderId;
-	GLuint _fragmentShaderId;
-	GLuint _compiledProgramId;
+	GLuint 	_vertexShaderId,
+			_fragmentShaderId,
+			_compiledProgramId;
 
 	bool _ready;
 };
