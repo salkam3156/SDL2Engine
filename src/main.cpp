@@ -1,9 +1,12 @@
 #include "StandardHeader.h"
 #include "Types/TestState.h"
 #include "Instance.h"
-#include "Shaders/ShaderProgramProgram.h"
+#include "Shaders/ShaderProgram.h"
+#include "Types/Shape.h"
+#include "../res/Quad.h"
 
 //TODO: create overall logging and exception classes , and do logging on exception ctor invocation
+//TODO: wrap stuff into unique ptrs
 //TODO: resource factory
 //TODO: platform checker, and dynamically assigning shader versions (modify #version ?) in the shader files / shader generator
 //TODO: model loader
@@ -16,9 +19,12 @@ int main(int argc, char* args[]) {
 	ShaderProgram shader = ShaderProgram("res/vertex.shader",
 			"res/fragment.shader");
 	shader.Use();
+	Shape shape(&shader);
+	Quad quad;
 
 	while (instance->Running()) {
 		instance->Run();
+		shape.Draw();
 	}
 
 	return retVal;

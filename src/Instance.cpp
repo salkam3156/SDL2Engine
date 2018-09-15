@@ -31,7 +31,7 @@ void Instance::SetState() {
 Instance* Instance::GetInstance() {
 	if (_applicationInstance == nullptr) {
 		_applicationInstance = new Instance();
-		_applicationInstance->SetState<TestState>();
+		//_applicationInstance->SetState<TestState>();
 	}
 
 	return _applicationInstance;
@@ -46,7 +46,7 @@ void Instance::Run() {
 			break;
 		case SDL_KEYDOWN:
 			if (_gameState != nullptr) {
-				_gameState->Update(event.key.keysym.sym);
+				//_gameState->Update(event.key.keysym.sym);
 			}
 			break;
 		default:

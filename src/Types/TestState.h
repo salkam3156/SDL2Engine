@@ -3,6 +3,7 @@
 #include "../Instance.h"
 #include "../Interfaces/IGameState.h"
 #include "TestState2.h"
+#include "Shape.h"
 
 class TestState: public IGameState {
 public:

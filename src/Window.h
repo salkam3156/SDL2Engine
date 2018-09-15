@@ -19,6 +19,7 @@ public:
 	Window(const Window&) = delete;
 	~Window();
 	void Update();
+
 private:
 	SDL_Window* _windowScreen;
 	SDL_GLContext _glContext;

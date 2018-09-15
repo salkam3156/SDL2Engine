@@ -2,6 +2,7 @@
 #include "StandardHeader.h"
 #include "Window.h"
 #include "Interfaces/IGameState.h"
+#include "Types/Shape.h"
 
 class InstanceException: public std::runtime_error {
 public:

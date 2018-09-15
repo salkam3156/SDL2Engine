@@ -1,4 +1,5 @@
 #pragma once
+#include "../StandardHeader.h"
 
 struct SDLDestructor {
 	void operator()(SDL_Window* ptr) const {

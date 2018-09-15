@@ -1,8 +1,8 @@
 #include "DrawableObject.h"
 
 DrawableObject::DrawableObject() :
-		_vertexArrayObj(GLuint { 0 }), _vertexBufferObj(GLuint { 0 }), _elementBufferObj(
-				GLuint { 0 }) {
+		_vertexArrayObj(0), _vertexBufferObj(0), _elementBufferObj(
+				0) {
 
 	glGenVertexArrays(1, &_vertexArrayObj);
 }
@@ -10,12 +10,10 @@ DrawableObject::DrawableObject() :
 bool DrawableObject::Draw() {
 	bool retVal = false;
 
-	if(_vertexArrayObj == 0 || _vertexBufferObj == 0 || _elementBufferObj == 0)
-	{
+	if (_vertexArrayObj == 0 || _vertexBufferObj == 0
+			|| _elementBufferObj == 0) {
 
-	}
-	else
-	{
+	} else {
 		BindVAO();
 		glDrawElements(GL_TRIANGLES, _elements.size(), GL_UNSIGNED_INT, 0);
 		retVal = true;
@@ -25,18 +23,27 @@ bool DrawableObject::Draw() {
 }
 
 DrawableObject::~DrawableObject() {
-
+	if (_elementBufferObj) {
+		glDeleteBuffers(1, &_elementBufferObj);
+	}
+	if (_vertexBufferObj) {
+		glDeleteBuffers(1, &_vertexBufferObj);
+	}
+	if (_vertexArrayObj) {
+		glDeleteVertexArrays(1, &_vertexArrayObj);
+	}
 }
 
-void DrawableObject::LoadVertices(std::vector<float> data) {
-	
+void DrawableObject::LoadVertices(std::vector<GLfloat> data) {
+
 	//TODO: watch for performance
 	_vertices = data;
 
 	glGenBuffers(1, &_vertexBufferObj);
 	glBindBuffer(GL_ARRAY_BUFFER, _vertexBufferObj);
-	
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * _vertices.size(), _vertices.data(), GL_STATIC_DRAW);
+
+	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * _vertices.size(),
+			_vertices.data(), GL_STATIC_DRAW);
 }
 
 void DrawableObject::LoadElements(std::vector<GLuint> data) {
@@ -45,7 +52,8 @@ void DrawableObject::LoadElements(std::vector<GLuint> data) {
 	glGenBuffers(1, &_elementBufferObj);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _elementBufferObj);
 
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * _elements.size(), _elements.data(), GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * _elements.size(),
+			_elements.data(), GL_STATIC_DRAW);
 }
 
 void DrawableObject::BindVAO() {

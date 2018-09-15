@@ -17,6 +17,7 @@ public:
 			std::string fragmentShaderFilePath);
 	bool Use();
 	GLint GetAttribute(std::string attribName);
+	GLuint _positionAttrLocation, _colorAttribLocation;
 
 private:
 	bool Ready();

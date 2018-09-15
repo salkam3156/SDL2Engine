@@ -9,12 +9,11 @@ public:
 	~DrawableObject();
 
 protected:
-	void LoadVertices(std::vector<float> data);
+	void LoadVertices(std::vector<GLfloat> data);
 	void LoadElements(std::vector<GLuint> data);
 	void BindVAO();
 	void UnbindVAO();
 
-private:
 	GLuint _vertexArrayObj;
 	GLuint _vertexBufferObj;
 	GLuint _elementBufferObj;
