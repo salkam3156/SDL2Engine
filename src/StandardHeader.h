@@ -6,6 +6,7 @@
 #include <sstream>
 #include <fstream>
 #include <vector>
+#include <jsoncpp/json/json.h>
 
 #include <SDL2/SDL.h>
 #include "Types/Destructors.h"
