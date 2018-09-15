@@ -3,7 +3,7 @@
 in vec2 position;
 in vec3 color;
 
-out vec3 outCoor;
+out vec3 outColor;
 
 void main()
 {
