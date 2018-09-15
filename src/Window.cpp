@@ -32,6 +32,7 @@ Window::~Window() {
 }
 
 void Window::InitContext() {
+	//TODO: initialize glew here after context creation and handle accordingly , should it fail
 	_glContext = SDL_GL_CreateContext(_windowScreen);
 	if (_glContext == nullptr) {
 		throw WindowException(SDL_GetError());
