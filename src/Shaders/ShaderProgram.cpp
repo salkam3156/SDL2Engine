@@ -25,6 +25,11 @@ bool ShaderProgram::Use() {
 
 }
 
+GLuint ShaderProgram::GetProgramId() const
+{
+	return _compiledProgramId;
+}
+
 GLuint ShaderProgram::GetPositionAttrLocation() const
 {
 	return _positionAttrLocation;
@@ -90,9 +95,9 @@ int ShaderProgram::Compile() {
 	return 0;
 }
 
-void ShaderProgram::SetUniformMatrixLocation(GLuint programId, std::string name, glm::mat4 matrix)
+void ShaderProgram::SetUniformMatrixLocation(std::string name, glm::mat4 matrix)
 {
-	glBindAttribLocation(programId, 1, name.c_str());
+	glBindAttribLocation(_compiledProgramId, 1, name.c_str());
 	_uniformMatrixLocation = 1;
 
 	glUniformMatrix4fv(1, 1, GL_FALSE, glm::value_ptr(matrix));
@@ -109,9 +114,6 @@ int ShaderProgram::Link() {
 
 	glBindAttribLocation(_compiledProgramId, 2, "in_color");
 	_colorAttrLocation = 2;
-
-
-	//SetUniformMatrixLocation(_compiledProgramId, "modelViewProjMat", )
 
 	glLinkProgram(_compiledProgramId);
 
