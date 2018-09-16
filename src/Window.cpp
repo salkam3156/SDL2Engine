@@ -1,7 +1,7 @@
 #include "Window.h"
 
 void Window::ClearScreen() {
-
+	glClearColor(0,255,255,1);
 }
 
 void Window::InitWindow(const std::string& windowTitle) {
@@ -22,8 +22,8 @@ Window::Window(const std::string& windowTitle) :
 }
 
 void Window::Update() {
-	SDL_GL_SwapWindow(_windowScreen);
 	ClearScreen();
+	SDL_GL_SwapWindow(_windowScreen);
 }
 
 Window::~Window() {
@@ -34,9 +34,9 @@ Window::~Window() {
 void Window::InitContext() {
 	//TODO: initialize glew here after context creation and handle accordingly , should it fail
 	//TODO: platformdetector
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_ES);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
 
 	_glContext = SDL_GL_CreateContext(_windowScreen);
 	auto glewInitialized = glewInit();

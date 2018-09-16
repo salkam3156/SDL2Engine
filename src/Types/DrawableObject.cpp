@@ -5,6 +5,7 @@ DrawableObject::DrawableObject() :
 				0) {
 
 	glGenVertexArrays(1, &_vertexArrayObj);
+	BindVAO();
 }
 
 bool DrawableObject::Draw() {
@@ -14,7 +15,6 @@ bool DrawableObject::Draw() {
 			|| _elementBufferObj == 0) {
 
 	} else {
-		BindVAO();
 		glDrawElements(GL_TRIANGLES, _elements.size(), GL_UNSIGNED_INT, 0);
 		retVal = true;
 	}
@@ -23,6 +23,8 @@ bool DrawableObject::Draw() {
 }
 
 DrawableObject::~DrawableObject() {
+	UnbindVAO();
+
 	if (_elementBufferObj) {
 		glDeleteBuffers(1, &_elementBufferObj);
 	}
@@ -32,6 +34,7 @@ DrawableObject::~DrawableObject() {
 	if (_vertexArrayObj) {
 		glDeleteVertexArrays(1, &_vertexArrayObj);
 	}
+
 }
 
 void DrawableObject::LoadVertices(std::vector<GLfloat> data) {

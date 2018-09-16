@@ -2,13 +2,8 @@
 
 Shape::Shape(ShaderProgram* shader) : DrawableObject()
 {
-	BindVAO();
-	auto vertices = _quad.GetVertices();
 	LoadVertices(_quad.GetVertices());
-	auto elements = _quad.GetElements();
 	LoadElements(_quad.GetElements());
-	//_positionAttr = shader->GetAttribute("in_position");
-	//_colorAttr = shader->GetAttribute("in_color");
 
 	glEnableVertexAttribArray(shader->_positionAttrLocation);
 	//TODO: make stride a member of the struct / implement shape/resource maker
