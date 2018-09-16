@@ -9,21 +9,21 @@ public:
 	Camera(ShaderProgram* shader);
 	void SetShader(ShaderProgram* shader);
 
-	void SetTranslationVector(float x, float y, float z);
-	void SetRotation(float angle, float x, float y, float z);
-	void Translate(float x, float y, float z);
-	void Rotate(float x, float y, float z);
+	void SetTranslation(GLfloat x, GLfloat y, GLfloat z);
+	void SetRotation(GLfloat angle, GLfloat x, GLfloat y, GLfloat z);
+	void Translate(GLfloat x, GLfloat y, GLfloat z);
+	void Rotate(GLfloat angle, GLfloat x, GLfloat y, GLfloat z);
 	void Update();
 
 private:
-	glm::mat4 projectionMatrix;
-	glm::mat4 viewMatrix;
-	glm::mat4 translationMatrix;
-	glm::mat4 rotationMatrix;
+	glm::mat4 _projectionMatrix;
+	glm::mat4 _viewMatrix;
+	glm::mat4 _translationMatrix;
+	glm::mat4 _rotationMatrix;
 
 	ShaderProgram* _shader;
 
-	GLint modelViewProjUniform;
+	GLint _modelViewProjUniform;
 
 	void UpdateWorldViewMatrix();
 };

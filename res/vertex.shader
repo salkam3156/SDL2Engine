@@ -1,14 +1,12 @@
 #version 300 es
 
-in vec2 in_position;
-in vec3 in_color;
+in vec2 vert_position;
+in vec3 vert_color;
 
-out vec3 out_color;
-
-uniform mat4 modelViewProjMat;
+out vec3 vert_out_color;
 
 void main()
 {
-	out_color = in_color;
-	gl_Position = modelViewProjMat * vec4(in_position, 0.0, 1.0);
+	vert_out_color = vert_color;
+	gl_Position = vec4(vert_position, 0.0, 1.0);
 }

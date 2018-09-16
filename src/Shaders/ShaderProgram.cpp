@@ -95,12 +95,12 @@ int ShaderProgram::Compile() {
 	return 0;
 }
 
-void ShaderProgram::SetUniformMatrixLocation(std::string name, glm::mat4 matrix)
+void ShaderProgram::SetUniformMatrix(glm::mat4 matrix)
 {
-	glBindAttribLocation(_compiledProgramId, 1, name.c_str());
-	_uniformMatrixLocation = 1;
+//	glBindAttribLocation(_compiledProgramId, 1, "modelViewProjMat");
+//	_uniformMatrixLocation = 1;
 
-	glUniformMatrix4fv(1, 1, GL_FALSE, glm::value_ptr(matrix));
+	glUniformMatrix4fv(_uniformMatrixLocation, 1, GL_FALSE, glm::value_ptr(matrix));
 }
 
 int ShaderProgram::Link() {
@@ -109,13 +109,22 @@ int ShaderProgram::Link() {
 	glAttachShader(_compiledProgramId, _vertexShaderId);
 	glAttachShader(_compiledProgramId, _fragmentShaderId);
 
-	glBindAttribLocation(_compiledProgramId, 1, "in_position");
+	glBindAttribLocation(_compiledProgramId, 1, "vert_position");
 	_positionAttrLocation = 1;
 
-	glBindAttribLocation(_compiledProgramId, 2, "in_color");
+	glBindAttribLocation(_compiledProgramId, 2, "vert_color");
 	_colorAttrLocation = 2;
 
 	glLinkProgram(_compiledProgramId);
+
+//	auto debugcol = glGetAttribLocation(_compiledProgramId,"in_color");
+//	auto debugpos = glGetAttribLocation(_compiledProgramId,"in_position");
+	_uniformMatrixLocation = glGetUniformLocation(_compiledProgramId,"modelViewProjMat");
+
+	if(_uniformMatrixLocation < 0)
+	{
+		throw;
+	}
 
 	ShaderLogPrinter::PrintLog(_compiledProgramId, OperationType::LINK);
 

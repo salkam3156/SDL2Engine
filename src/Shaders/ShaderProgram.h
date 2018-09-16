@@ -21,7 +21,7 @@ public:
 	GLuint GetColorAttrLocation() const;
 	GLuint GetUniformMatrixAttrLocation() const;
 	GLuint GetProgramId() const;
-	void SetUniformMatrixLocation(std::string name, glm::mat4 matrix);
+	void SetUniformMatrix(glm::mat4 matrix);
 
 private:
 	bool Ready();
