@@ -23,6 +23,7 @@ int main(int argc, char* args[]) {
 	Shape shape(&shaderProgram);
 	Camera camera(&shaderProgram);
 	camera.SetTranslation(0, 0, -5);
+	camera.SetRotation(0, 0, 0, -5);
 	camera.Update();
 
 	while (instance->Running()) {
@@ -37,18 +38,18 @@ int main(int argc, char* args[]) {
 				{
 					if(event.key.keysym.sym == SDLK_UP)
 					{
-						camera.Translate(0, 0, 0.1);
+						camera.Translate(0, 0, 0.65);
 					}else if(event.key.keysym.sym == SDLK_DOWN)
 					{
-						camera.Translate(0, 0, -0.1);
+						camera.Translate(0, 0, -0.65);
 					}
 					else if(event.key.keysym.sym == SDLK_LEFT)
 					{
-						camera.Translate(0.1, 0, 0);
+						camera.Rotate(-1.5,0, 1, 0);
 					}
 					else if(event.key.keysym.sym == SDLK_RIGHT)
 					{
-						camera.Translate(-0.1, 0, 0);
+						camera.Rotate(1.5,0, 1, 0);
 					}
 				}
 			}

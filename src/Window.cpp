@@ -35,9 +35,9 @@ Window::~Window() {
 void Window::InitContext() {
 	//TODO: initialize glew here after context creation and handle accordingly , should it fail
 	//TODO: platformdetector
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_ES);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
 
 	_glContext = SDL_GL_CreateContext(_windowScreen);
 	auto glewInitialized = glewInit();
