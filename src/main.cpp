@@ -12,6 +12,7 @@
 //TODO: platform checker, and dynamically assigning shader versions (modify #version ?) in the shader files / shader generator
 //TODO: model loader
 //TODO: input handler
+//TODO: tweening for input
 
 int main(int argc, char* args[]) {
 	int retVal = 0;
@@ -21,21 +22,34 @@ int main(int argc, char* args[]) {
 	shaderProgram.Use();
 	Shape shape(&shaderProgram);
 	Camera camera(&shaderProgram);
-	camera.SetTranslation(0, 0, -2);
+	camera.SetTranslation(0, 0, -5);
+	camera.Update();
 
 	while (instance->Running()) {
 		SDL_Event event;
 			while (SDL_PollEvent(&event)) {
-				switch (event.type) {
-				case SDL_QUIT:
-					instance->Stop();
-					break;
-				case SDL_KEYDOWN:
-					camera.Translate(0,0,-0.5);
 
-					break;
-				default:
-					break;
+				if(event.type == SDL_QUIT)
+				{
+					instance->Stop();
+				}
+				if(event.type == SDL_KEYDOWN)
+				{
+					if(event.key.keysym.sym == SDLK_UP)
+					{
+						camera.Translate(0, 0, 0.1);
+					}else if(event.key.keysym.sym == SDLK_DOWN)
+					{
+						camera.Translate(0, 0, -0.1);
+					}
+					else if(event.key.keysym.sym == SDLK_LEFT)
+					{
+						camera.Translate(0.1, 0, 0);
+					}
+					else if(event.key.keysym.sym == SDLK_RIGHT)
+					{
+						camera.Translate(-0.1, 0, 0);
+					}
 				}
 			}
 			glClear(GL_COLOR_BUFFER_BIT);
