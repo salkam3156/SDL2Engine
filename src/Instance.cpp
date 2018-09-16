@@ -37,7 +37,7 @@ Instance* Instance::GetInstance() {
 	return _applicationInstance;
 }
 
-void Instance::Run() {
+void Instance::Update() {
 	SDL_Event event;
 	while (SDL_PollEvent(&event)) {
 		switch (event.type) {

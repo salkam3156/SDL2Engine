@@ -19,10 +19,9 @@ int main(int argc, char* args[]) {
 	ShaderProgram shaderProgram = ShaderProgram("res/vertex.shader", "res/fragment.shader");
 	shaderProgram.Use();
 	Shape shape(&shaderProgram);
-	Quad quad;
 
 	while (instance->Running()) {
-		instance->Run();
+		instance->Update();
 		shape.Draw();
 	}
 

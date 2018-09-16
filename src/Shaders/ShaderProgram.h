@@ -17,8 +17,10 @@ public:
 			std::string fragmentShaderFilePath);
 	bool Use();
 	GLint GetAttribute(std::string attribName);
-	GLint GetUniformLocation(std::string uniformName);
-	GLuint _positionAttrLocation, _colorAttribLocation, _uniformLocation;
+	GLuint GetPositionAttrLocation() const;
+	GLuint GetColorAttrLocation() const;
+	GLuint GetUniformMatrixAttrLocation() const;
+	void SetUniformMatrixLocation(GLuint programId, std::string name, glm::mat4 matrix);
 
 private:
 	bool Ready();
@@ -35,6 +37,8 @@ private:
 	std::stringstream _vertexShaderStream, _fragmentShaderStream;
 
 	GLuint _vertexShaderId, _fragmentShaderId, _compiledProgramId;
+
+	GLuint _positionAttrLocation, _colorAttrLocation, _uniformMatrixLocation;
 
 	bool _ready;
 };

@@ -21,7 +21,7 @@ private:
 public:
 	static Instance* GetInstance();
 	bool Running() const;
-	void Run();
+	void Update();
 	void Stop();
 
 	template<typename T>

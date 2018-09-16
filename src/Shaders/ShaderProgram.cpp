@@ -18,16 +18,30 @@ ShaderProgram::ShaderProgram(std::string vertexShaderFilePath,
 }
 
 bool ShaderProgram::Use() {
-	if (true) {
+	if (_ready) {
 		glUseProgram(_compiledProgramId);
 	}
-	return true;
+	return _ready;
 
 }
 
+GLuint ShaderProgram::GetPositionAttrLocation() const
+{
+	return _positionAttrLocation;
+}
+
+GLuint ShaderProgram::GetColorAttrLocation() const
+{
+	return _colorAttrLocation;
+}
+
+GLuint ShaderProgram::GetUniformMatrixAttrLocation() const
+{
+	return _uniformMatrixLocation;
+}
+
 GLint ShaderProgram::GetAttribute(std::string attribName) {
-	auto location = glGetAttribLocation(_compiledProgramId, attribName.c_str());
-	return location;
+	return glGetAttribLocation(_compiledProgramId, attribName.c_str());
 }
 
 bool ShaderProgram::Ready() {
@@ -52,17 +66,13 @@ int ShaderProgram::Load() {
 
 	_vertexShaderProgramString = _vertexShaderStream.str();
 	_fragmentShaderProgramString = _fragmentShaderStream.str();
-//	std::cout << _vertexShaderProgramString << std::endl << std::endl;
-//
-//	std::cout << _fragmentShaderProgramString << std::endl << std::endl;
+
 	return 0;
 }
 
 int ShaderProgram::Compile() {
-	GLint retVal;
 
 	auto tempVertexSrc = _vertexShaderProgramString.c_str();
-	//auto version = glGetString(GL_VERSION);
 	//TODO: extract these into a method
 	_vertexShaderId = glCreateShader(GL_VERTEX_SHADER);
 	glShaderSource(_vertexShaderId, 1, &tempVertexSrc, 0);
@@ -75,11 +85,17 @@ int ShaderProgram::Compile() {
 	glShaderSource(_fragmentShaderId, 1, &tempFragmentSrc, 0);
 	glCompileShader(_fragmentShaderId);
 
-	glGetShaderiv(_fragmentShaderId, GL_COMPILE_STATUS, &retVal);
-
 	ShaderLogPrinter::PrintLog(_fragmentShaderId, OperationType::COMPILE);
 
 	return 0;
+}
+
+void ShaderProgram::SetUniformMatrixLocation(GLuint programId, std::string name, glm::mat4 matrix)
+{
+	glBindAttribLocation(programId, 1, name.c_str());
+	_uniformMatrixLocation = 1;
+
+	glUniformMatrix4fv(1, 1, GL_FALSE, glm::value_ptr(matrix));
 }
 
 int ShaderProgram::Link() {
@@ -92,10 +108,10 @@ int ShaderProgram::Link() {
 	_positionAttrLocation = 1;
 
 	glBindAttribLocation(_compiledProgramId, 2, "in_color");
-	_colorAttribLocation = 2;
+	_colorAttrLocation = 2;
 
-	glBindAttribLocation(_compiledProgramId, 3, "modelViewProjMat");
-	_uniformLocation = 3;
+
+	//SetUniformMatrixLocation(_compiledProgramId, "modelViewProjMat", )
 
 	glLinkProgram(_compiledProgramId);
 

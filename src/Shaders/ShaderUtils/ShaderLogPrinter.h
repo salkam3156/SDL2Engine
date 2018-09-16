@@ -1,7 +1,7 @@
 #pragma once
 #include "../../StandardHeader.h"
 
-enum class OperationType {
+enum class OperationType : uint8_t {
 	COMPILE, LINK
 };
 
