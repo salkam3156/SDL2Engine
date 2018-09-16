@@ -16,6 +16,8 @@
 
 int main(int argc, char* args[]) {
 	int retVal = 0;
+	int framerate = 60;
+	int frameTime = 1000 /60;
 
 	auto instance = Instance::GetInstance();
 	ShaderProgram shaderProgram = ShaderProgram("res/vertex.shader", "res/fragment.shader");
@@ -25,8 +27,10 @@ int main(int argc, char* args[]) {
 	camera.SetTranslation(0, 0, -5);
 	camera.SetRotation(0, 0, 0, -5);
 	camera.Update();
+	auto lastFrameTime = SDL_GetTicks();
 
 	while (instance->Running()) {
+
 		SDL_Event event;
 			while (SDL_PollEvent(&event)) {
 
@@ -38,10 +42,10 @@ int main(int argc, char* args[]) {
 				{
 					if(event.key.keysym.sym == SDLK_UP)
 					{
-						camera.Translate(0, 0, 0.65);
+						camera.Translate(0, 0, 0.5);
 					}else if(event.key.keysym.sym == SDLK_DOWN)
 					{
-						camera.Translate(0, 0, -0.65);
+						camera.Translate(0, 0, -0.5);
 					}
 					else if(event.key.keysym.sym == SDLK_LEFT)
 					{
@@ -53,10 +57,14 @@ int main(int argc, char* args[]) {
 					}
 				}
 			}
-			glClear(GL_COLOR_BUFFER_BIT);
-			shape.Draw();
 			camera.Update();
-			instance->UpdateWindow();
+			if(SDL_GetTicks() - lastFrameTime > frameTime)
+			{
+				glClear(GL_COLOR_BUFFER_BIT);
+				shape.Draw();
+				instance->UpdateWindow();
+				lastFrameTime = SDL_GetTicks();
+			}
 
 	}
 
