@@ -117,8 +117,6 @@ int ShaderProgram::Link() {
 
 	glLinkProgram(_compiledProgramId);
 
-//	auto debugcol = glGetAttribLocation(_compiledProgramId,"in_color");
-//	auto debugpos = glGetAttribLocation(_compiledProgramId,"in_position");
 	_uniformMatrixLocation = glGetUniformLocation(_compiledProgramId,"modelViewProjMat");
 
 	if(_uniformMatrixLocation < 0)

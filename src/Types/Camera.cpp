@@ -4,7 +4,7 @@ Camera::Camera(ShaderProgram* shader)
 {
 	_shader = shader;
 	_modelViewProjUniform = _shader->GetUniformMatrixAttrLocation();
-	_projectionMatrix = glm::perspective(glm::radians(45.0f), 640/(float)480, 1.0f, 2000.0f);
+	_projectionMatrix = glm::perspective(glm::radians(45.0f), 640/(float)480, 1.0f, 100.0f);
 
 }
 void Camera::SetShader(ShaderProgram* shader)
@@ -39,10 +39,11 @@ void Camera::Rotate(GLfloat angle, GLfloat x, GLfloat y, GLfloat z)
 
 void Camera::Update()
 {
-	//_shader->SetUniformMatrix()
+	//TODO: watch out for uniform value
+	_shader->SetUniformMatrix(_projectionMatrix * _viewMatrix);//_shader->SetUniformMatrix()
 }
 
 void Camera::UpdateWorldViewMatrix()
 {
-	_rotationMatrix * _translationMatrix;
+	_viewMatrix = _rotationMatrix * _translationMatrix;
 }

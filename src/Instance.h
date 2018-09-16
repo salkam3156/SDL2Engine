@@ -16,6 +16,7 @@ private:
 	Instance();
 	Instance(const Instance&) = delete;
 	~Instance();
+
 	static Instance* _applicationInstance;
 
 public:
@@ -23,6 +24,8 @@ public:
 	bool Running() const;
 	void Update();
 	void Stop();
+	//TODO: move back to private after debugging and creating states
+	void UpdateWindow();
 
 	template<typename T>
 	void SetState();

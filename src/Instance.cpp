@@ -37,6 +37,11 @@ Instance* Instance::GetInstance() {
 	return _applicationInstance;
 }
 
+void Instance::UpdateWindow()
+{
+	_window->Update();
+}
+
 void Instance::Update() {
 	SDL_Event event;
 	while (SDL_PollEvent(&event)) {
