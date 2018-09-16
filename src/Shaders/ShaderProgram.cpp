@@ -94,6 +94,9 @@ int ShaderProgram::Link() {
 	glBindAttribLocation(_compiledProgramId, 2, "in_color");
 	_colorAttribLocation = 2;
 
+	glBindAttribLocation(_compiledProgramId, 3, "modelViewProjMat");
+	_uniformLocation = 3;
+
 	glLinkProgram(_compiledProgramId);
 
 	ShaderLogPrinter::PrintLog(_compiledProgramId, OperationType::LINK);

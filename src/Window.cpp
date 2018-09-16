@@ -2,6 +2,7 @@
 
 void Window::ClearScreen() {
 	glClearColor(0,255,255,1);
+	glClear(GL_COLOR_BUFFER_BIT);
 }
 
 void Window::InitWindow(const std::string& windowTitle) {
@@ -19,10 +20,10 @@ Window::Window(const std::string& windowTitle) :
 		_windowScreen(nullptr), _glContext(nullptr) {
 	InitWindow(windowTitle);
 	InitContext();
+	ClearScreen();
 }
 
 void Window::Update() {
-	ClearScreen();
 	SDL_GL_SwapWindow(_windowScreen);
 }
 
