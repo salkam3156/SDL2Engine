@@ -67,6 +67,4 @@ void Instance::Stop() {
 
 Instance::~Instance() {
 	SDL_Quit();
-	delete _applicationInstance;
-	_applicationInstance = nullptr;
 }
