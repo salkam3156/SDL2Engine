@@ -18,6 +18,29 @@ void Window::InitWindow(const std::string& windowTitle) {
 
 Window::Window(const std::string& windowTitle) :
 		_windowScreen(nullptr), _glContext(nullptr) {
+
+	if(SDL_Init(SDL_INIT_VIDEO) != 0)
+	{
+		throw WindowException(SDL_GetError());
+	}
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_ES);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
+	SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
+	SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
+	SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
+	SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 8);
+	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
+	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+
+
+	int glmajor = 0;
+		SDL_GL_GetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, &glmajor);
+
+	int depth = 0;
+		SDL_GL_GetAttribute(SDL_GL_DEPTH_SIZE, &depth);
+
+
 	InitWindow(windowTitle);
 	InitContext();
 	ClearScreen();
@@ -30,28 +53,31 @@ void Window::Update() {
 Window::~Window() {
 	SDL_GL_DeleteContext(_glContext);
 	SDL_DestroyWindow(_windowScreen);
+	SDL_Quit();
 }
 
 void Window::InitContext() {
-	//TODO: initialize glew here after context creation and handle accordingly , should it fail
 	//TODO: platformdetector
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_ES);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
 
 	_glContext = SDL_GL_CreateContext(_windowScreen);
-	auto glewInitialized = glewInit();
-	if (_glContext == nullptr || glewInitialized != 0) {
-		std::stringstream error;
-		error << SDL_GetError() << glGetError();
-		throw WindowException(error.str());
-	}
-	try {
-		if (SDL_GL_SetSwapInterval(1) < 0) {
-			throw WindowException(SDL_GetError());
+	SDL_GL_MakeCurrent(_windowScreen, _glContext);
+	try
+	{
+		if (_glContext == nullptr || glewInit() != 0) {
+			std::stringstream error;
+			error << SDL_GetError() << glGetError();
+			throw WindowException(error.str());
 		}
-	} catch (WindowException& exception) {
-		std::cout << "SetSwapInterval [Enable V-Sync]: " << SDL_GetError()
-				<< std::endl;
+		if (SDL_GL_SetSwapInterval(0) != 0) {
+			std::stringstream error;
+			error << "SetSwapInterval [Enable V-Sync]: " << SDL_GetError();
+			throw WindowException(error.str());
+		}
 	}
+	catch(WindowException& ex)
+	{
+		std::cout << ex.what() << std::endl;
+	}
+
+
 }

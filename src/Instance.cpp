@@ -1,20 +1,17 @@
 #include "Instance.h"
-#include "Types/TestState.h"
-#include "Types/TestState2.h"
 
 Instance::Instance() :
 		_running(true), _window(nullptr), _gameState(nullptr) {
 	try {
-		if (SDL_Init(SDL_INIT_VIDEO) != 0) {
-			throw InstanceException(SDL_GetError());
-		} else {
 			_window = new Window(std::string("Core.App"));
 		}
-	} catch (InstanceException& exception) {
-		std::cout << "Application error: " << exception.what() << std::endl;
-	} catch (WindowException& exception) {
+	catch (InstanceException& exception) {
 		std::cout << "Application error: " << exception.what() << std::endl;
 	}
+	catch (WindowException& exception) {
+		std::cout << "Application error: " << exception.what() << std::endl;
+	}
+
 }
 
 Instance* Instance::_applicationInstance = nullptr;
@@ -31,7 +28,6 @@ void Instance::SetState() {
 Instance* Instance::GetInstance() {
 	if (_applicationInstance == nullptr) {
 		_applicationInstance = new Instance();
-		_applicationInstance->SetState<TestState>();
 	}
 
 	return _applicationInstance;
