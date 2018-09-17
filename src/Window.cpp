@@ -33,14 +33,6 @@ Window::Window(const std::string& windowTitle) :
 	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
-
-	int glmajor = 0;
-		SDL_GL_GetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, &glmajor);
-
-	int depth = 0;
-		SDL_GL_GetAttribute(SDL_GL_DEPTH_SIZE, &depth);
-
-
 	InitWindow(windowTitle);
 	InitContext();
 	ClearScreen();
