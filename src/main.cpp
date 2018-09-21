@@ -13,16 +13,19 @@
 //TODO: input handler
 //TODO: tweening for input
 
+void HandleInput(Camera& camera);
+
 int main(int argc, char* args[]) {
 	int retVal = 0;
 	int framerate = 60;
 	int frameTime = 1000 /60;
 
 	auto instance = Instance::GetInstance();
-	ShaderProgram shaderProgram = ShaderProgram("res/vertex.shader", "res/fragment.shader");
-	shaderProgram.Use();
-	Shape shape(&shaderProgram);
-	Camera camera(&shaderProgram);
+	auto shaderProgram = ShaderProgram::MakeShaderProgram("res/vertex.shader", "res/fragment.shader");
+	auto shader2 = shaderProgram;
+	shaderProgram->Use();
+	Shape shape(shaderProgram.get());
+	Camera camera(shaderProgram.get());
 	camera.SetTranslation(0, 0, -5);
 	camera.SetRotation(0, 0, 0, -5);
 	camera.Update();
@@ -37,28 +40,12 @@ int main(int argc, char* args[]) {
 				{
 					instance->Stop();
 				}
-				if(event.type == SDL_KEYDOWN)
-				{
-					if(event.key.keysym.sym == SDLK_UP)
-					{
-						camera.Translate(0, 0, 0.5);
-					}else if(event.key.keysym.sym == SDLK_DOWN)
-					{
-						camera.Translate(0, 0, -0.5);
-					}
-					else if(event.key.keysym.sym == SDLK_LEFT)
-					{
-						camera.Rotate(-1.5,0, 1, 0);
-					}
-					else if(event.key.keysym.sym == SDLK_RIGHT)
-					{
-						camera.Rotate(1.5,0, 1, 0);
-					}
-				}
 			}
+
 			camera.Update();
 			if(SDL_GetTicks() - lastFrameTime > frameTime)
 			{
+				HandleInput(camera);
 				glClear(GL_COLOR_BUFFER_BIT);
 				shape.Draw();
 				instance->UpdateWindow();
@@ -68,4 +55,27 @@ int main(int argc, char* args[]) {
 	}
 
 	return retVal;
+}
+
+void HandleInput(Camera& camera)
+{
+	auto keyState = SDL_GetKeyboardState(nullptr);
+
+	if(keyState[SDL_SCANCODE_UP])
+	{
+		camera.Translate(0, 0, 0.5);
+	}
+	else if(keyState[SDL_SCANCODE_DOWN])
+	{
+		camera.Translate(0, 0, -0.5);
+	}
+	else if(keyState[SDL_SCANCODE_LEFT])
+	{
+		camera.Rotate(-1.5,0, 1, 0);
+	}
+	else if(keyState[SDL_SCANCODE_RIGHT])
+	{
+		camera.Rotate(1.5,0, 1, 0);
+	}
+
 }

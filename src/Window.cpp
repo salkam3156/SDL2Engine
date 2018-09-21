@@ -26,12 +26,6 @@ Window::Window(const std::string& windowTitle) :
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_ES);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
-	SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
-	SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
-	SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
-	SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 8);
-	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
-	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
 	InitWindow(windowTitle);
 	InitContext();
@@ -57,7 +51,7 @@ void Window::InitContext() {
 	{
 		if (_glContext == nullptr || glewInit() != 0) {
 			std::stringstream error;
-			error << SDL_GetError() << glGetError();
+			error << SDL_GetError() << "\t" <<glGetError();
 			throw WindowException(error.str());
 		}
 		if (SDL_GL_SetSwapInterval(0) != 0) {

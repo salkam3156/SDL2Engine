@@ -10,11 +10,18 @@ public:
 };
 
 class ShaderProgram {
+
 public:
-	using ShaderProgramPtr = std::unique_ptr<ShaderProgram>;
+
+
+	static std::shared_ptr<ShaderProgram> MakeShaderProgram(std::string vertexShaderFilePath,
+			std::string fragmentShaderFilePath)
+	{
+		return std::make_shared<ShaderProgram>(vertexShaderFilePath, fragmentShaderFilePath);
+	}
 
 	ShaderProgram(std::string vertexShaderFilePath,
-			std::string fragmentShaderFilePath);
+					std::string fragmentShaderFilePath);
 	bool Use();
 	GLint GetAttribute(std::string attribName);
 	GLuint GetPositionAttrLocation() const;
@@ -24,6 +31,7 @@ public:
 	void SetUniformMatrix(glm::mat4 matrix);
 
 private:
+
 	bool Ready();
 	int Load();
 	int Compile();
