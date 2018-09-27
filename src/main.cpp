@@ -45,6 +45,7 @@ int main(int argc, char* args[]) {
 			if(SDL_GetTicks() - lastFrameTime > frameTime)
 			{
 				HandleInput(camera, &mouseX, &mouseY);
+				shaderProgram->SetUniformVec3("light_source", {mouseX, mouseY, 0});
 				camera.Update();
 				glClear(GL_COLOR_BUFFER_BIT);
 				shape.Draw();
