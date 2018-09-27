@@ -13,13 +13,14 @@
 //TODO: input handler
 //TODO: tweening for input
 
-void HandleInput(Camera& camera);
+void HandleInput(Camera& camera, int* mouseX, int* mouseY);
 
 int main(int argc, char* args[]) {
+	int mouseX = 0;
+	int mouseY = 0;
 	int retVal = 0;
 	int framerate = 60;
 	int frameTime = 1000 /60;
-
 	auto instance = Instance::GetInstance();
 	auto shaderProgram = ShaderProgram::MakeShaderProgram("res/vertex.shader", "res/fragment.shader");
 	shaderProgram->Use();
@@ -43,12 +44,15 @@ int main(int argc, char* args[]) {
 
 			if(SDL_GetTicks() - lastFrameTime > frameTime)
 			{
-				HandleInput(camera);
+				HandleInput(camera, &mouseX, &mouseY);
 				camera.Update();
 				glClear(GL_COLOR_BUFFER_BIT);
 				shape.Draw();
 				instance->UpdateWindow();
 				lastFrameTime = SDL_GetTicks();
+				std::stringstream mousePos;
+				mousePos << "Mouse x: " << mouseX << "\t" << "Mouse y: " << mouseY << std::endl;
+				std::cout << mousePos.str() << std::endl;
 			}
 
 	}
@@ -56,9 +60,10 @@ int main(int argc, char* args[]) {
 	return retVal;
 }
 
-void HandleInput(Camera& camera)
+void HandleInput(Camera& camera, int* mouseX, int* mouseY)
 {
 	auto keyState = SDL_GetKeyboardState(nullptr);
+	SDL_GetMouseState(mouseX, mouseY);
 
 	if(keyState[SDL_SCANCODE_UP])
 	{
