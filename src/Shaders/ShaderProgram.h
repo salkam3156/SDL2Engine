@@ -31,19 +31,13 @@ public:
 	void SetUniformMatrix(glm::mat4 matrix);
 
 private:
-
 	bool Ready();
-	int Load();
+	int Load(std::string vertPath , std::string fragPath);
 	int Compile();
 	int Link();
 
 private:
-	std::ifstream _vertexShaderFile, _fragmentShaderFile;
-
-	std::string _vertexShaderPath, _fragmentShaderPath,
-			_vertexShaderProgramString, _fragmentShaderProgramString;
-
-	std::stringstream _vertexShaderStream, _fragmentShaderStream;
+	std::string _vertexShaderProgramString, _fragmentShaderProgramString;
 
 	GLuint _vertexShaderId, _fragmentShaderId, _compiledProgramId;
 

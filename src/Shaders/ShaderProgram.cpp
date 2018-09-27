@@ -1,13 +1,11 @@
 #include "ShaderProgram.h"
 
-ShaderProgram::ShaderProgram(std::string vertexShaderFilePath,
-		std::string fragmentShaderFilePath) :
-		_ready(false) {
-	_vertexShaderPath = vertexShaderFilePath;
-	_fragmentShaderPath = fragmentShaderFilePath;
+ShaderProgram::ShaderProgram(std::string vertexShaderFilePath, std::string fragmentShaderFilePath) :
+		_ready(false)
+{
 
 	try {
-		if (Load() != 0 || Compile() != 0 || Link() != 0) {
+		if (Load(vertexShaderFilePath, fragmentShaderFilePath) != 0 || Compile() != 0 || Link() != 0) {
 			throw ShaderException("Error loading shader file");
 		} else {
 			_ready = true;
@@ -53,24 +51,30 @@ bool ShaderProgram::Ready() {
 	return _ready;
 }
 
-int ShaderProgram::Load() {
-	_vertexShaderFile.open(_vertexShaderPath, std::ios::in);
+int ShaderProgram::Load(std::string vertPath , std::string fragPath) {
+
+	std::ifstream vertexShaderFile;
+	vertexShaderFile.open(vertPath, std::ios::in);
 	//TODO: file not open exception
-	if (!_vertexShaderFile) {
+	if (!vertexShaderFile) {
 		return -1;
 	}
+
 	// TODO: refactor , proper error codes and returns
-	_vertexShaderStream << _vertexShaderFile.rdbuf();
+	std::stringstream vertexShaderStream;
+	vertexShaderStream << vertexShaderFile.rdbuf();
 
-	_fragmentShaderFile.open(_fragmentShaderPath, std::ios::in);
-	if (!_fragmentShaderFile) {
+	std::ifstream fragmentShaderFile;
+	fragmentShaderFile.open(fragPath, std::ios::in);
+	if (!fragmentShaderFile) {
 		return -1;
 	}
 
-	_fragmentShaderStream << _fragmentShaderFile.rdbuf();
+	std::stringstream fragmentShaderStream;
+	fragmentShaderStream << fragmentShaderFile.rdbuf();
 
-	_vertexShaderProgramString = _vertexShaderStream.str();
-	_fragmentShaderProgramString = _fragmentShaderStream.str();
+	_vertexShaderProgramString = vertexShaderStream.str();
+	_fragmentShaderProgramString = fragmentShaderStream.str();
 
 	return 0;
 }
@@ -116,6 +120,7 @@ int ShaderProgram::Link() {
 	_colorAttrLocation = 2;
 
 	glLinkProgram(_compiledProgramId);
+	glValidateProgram(_compiledProgramId);
 
 	_uniformMatrixLocation = glGetUniformLocation(_compiledProgramId,"modelViewProjMat");
 
