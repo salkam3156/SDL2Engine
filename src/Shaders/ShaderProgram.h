@@ -29,7 +29,7 @@ public:
 	GLuint GetColorAttrLocation() const;
 	GLuint GetUniformMatrixAttrLocation() const;
 	GLuint GetProgramId() const;
-	void SetUniformMatrix(glm::mat4 matrix);
+	void SetUniformMatrix(std::string name, glm::mat4 matrix);
 	~ShaderProgram();
 
 private:
@@ -37,6 +37,7 @@ private:
 	int Load(std::string vertPath , std::string fragPath);
 	int Compile();
 	int Link();
+	GLint GetUniformLocation(std::string uniformName);
 
 private:
 	std::string _vertexShaderProgramString, _fragmentShaderProgramString;

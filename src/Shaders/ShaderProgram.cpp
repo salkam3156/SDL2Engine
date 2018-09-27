@@ -20,6 +20,11 @@ void ShaderProgram::Disable()
 	glUseProgram(0);
 }
 
+GLint ShaderProgram::GetUniformLocation(std::string uniformName)
+{
+	return glGetUniformLocation(_compiledProgramId ,uniformName.c_str());
+}
+
 ShaderProgram::~ShaderProgram()
 {
 	Disable();
@@ -112,12 +117,9 @@ int ShaderProgram::Compile() {
 	return 0;
 }
 
-void ShaderProgram::SetUniformMatrix(glm::mat4 matrix)
+void ShaderProgram::SetUniformMatrix(std::string name, glm::mat4 matrix)
 {
-//	glBindAttribLocation(_compiledProgramId, 1, "modelViewProjMat");
-//	_uniformMatrixLocation = 1;
-
-	glUniformMatrix4fv(_uniformMatrixLocation, 1, GL_FALSE, glm::value_ptr(matrix));
+	glUniformMatrix4fv(GetUniformLocation(name), 1, GL_FALSE, glm::value_ptr(matrix));
 }
 
 int ShaderProgram::Link() {
