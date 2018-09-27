@@ -30,6 +30,10 @@ public:
 	GLuint GetUniformMatrixAttrLocation() const;
 	GLuint GetProgramId() const;
 	void SetUniformMatrix(std::string name, glm::mat4 matrix);
+	void SetUniformVec2(std::string name, glm::vec2 vec);
+	void SetUniformVec3(std::string name, glm::vec3 vec);
+	void SetUniformVec4(std::string name, glm::vec4 vec);
+
 	~ShaderProgram();
 
 private:

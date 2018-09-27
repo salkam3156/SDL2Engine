@@ -116,6 +116,20 @@ int ShaderProgram::Compile() {
 
 	return 0;
 }
+void ShaderProgram::SetUniformVec2(std::string name, glm::vec2 vec)
+{
+	glUniform2f(GetUniformLocation(name), vec.x, vec.y);
+}
+
+void ShaderProgram::SetUniformVec3(std::string name, glm::vec3 vec)
+{
+	glUniform3f(GetUniformLocation(name), vec.x, vec.y, vec.z);
+}
+
+void ShaderProgram::SetUniformVec4(std::string name, glm::vec4 vec)
+{
+	glUniform4f(GetUniformLocation(name), vec.x, vec.y, vec.z, vec.w);
+}
 
 void ShaderProgram::SetUniformMatrix(std::string name, glm::mat4 matrix)
 {
