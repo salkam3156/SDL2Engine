@@ -22,13 +22,12 @@ int main(int argc, char* args[]) {
 
 	auto instance = Instance::GetInstance();
 	auto shaderProgram = ShaderProgram::MakeShaderProgram("res/vertex.shader", "res/fragment.shader");
-	auto shader2 = shaderProgram;
 	shaderProgram->Use();
 	Shape shape(shaderProgram.get());
 	Camera camera(shaderProgram.get());
 	camera.SetTranslation(0, 0, -5);
 	camera.SetRotation(0, 0, 0, -5);
-	camera.Update();
+	//camera.Update();
 	auto lastFrameTime = SDL_GetTicks();
 
 	while (instance->Running()) {
@@ -42,10 +41,10 @@ int main(int argc, char* args[]) {
 				}
 			}
 
-			camera.Update();
 			if(SDL_GetTicks() - lastFrameTime > frameTime)
 			{
 				HandleInput(camera);
+				camera.Update();
 				glClear(GL_COLOR_BUFFER_BIT);
 				shape.Draw();
 				instance->UpdateWindow();
