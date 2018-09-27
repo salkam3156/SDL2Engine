@@ -40,7 +40,8 @@ void Camera::Rotate(GLfloat angle, GLfloat x, GLfloat y, GLfloat z)
 void Camera::Update()
 {
 	//TODO: watch out for uniform value
-	_shader->SetUniformMatrix(_projectionMatrix * _viewMatrix);//_shader->SetUniformMatrix()
+	auto modelViewMatrix = _projectionMatrix * _viewMatrix;
+	_shader->SetUniformMatrix("modelViewProjMat", modelViewMatrix);//_shader->SetUniformMatrix()
 }
 
 void Camera::UpdateWorldViewMatrix()

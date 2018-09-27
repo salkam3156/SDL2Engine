@@ -51,7 +51,7 @@ int main(int argc, char* args[]) {
 				instance->UpdateWindow();
 				lastFrameTime = SDL_GetTicks();
 				std::stringstream mousePos;
-				mousePos << "Mouse x: " << mouseX << "\t" << "Mouse y: " << mouseY << std::endl;
+				mousePos << "Mouse x: " << mouseX << "\t" << "Mouse y: " << mouseY;
 				std::cout << mousePos.str() << std::endl;
 			}
 
