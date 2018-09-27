@@ -1,6 +1,6 @@
 #include "Shape.h"
 
-Shape::Shape(ShaderProgram* shader) : DrawableObject()
+Shape::Shape(std::shared_ptr<ShaderProgram> shader) : DrawableObject()
 {
 	LoadVertices(_quad.GetVertices());
 	LoadElements(_quad.GetElements());

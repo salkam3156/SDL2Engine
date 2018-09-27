@@ -5,7 +5,7 @@ in vec3 vert_color;
 
 out vec3 vert_out_color;
 
-uniform mat4 modelViewProjMat;
+uniform mat4 modelViewProjMat = mat4(1.0f);
 
 void main()
 {

@@ -6,8 +6,8 @@ class Camera
 {
 public:
 	//TODO: shaderprogram into shared ptr / container
-	Camera(ShaderProgram* shader);
-	void SetShader(ShaderProgram* shader);
+	Camera(std::shared_ptr<ShaderProgram> shader);
+	void SetShader(std::shared_ptr<ShaderProgram> shader);
 
 	void SetTranslation(GLfloat x, GLfloat y, GLfloat z);
 	void SetRotation(GLfloat angle, GLfloat x, GLfloat y, GLfloat z);
@@ -21,7 +21,7 @@ private:
 	glm::mat4 _translationMatrix;
 	glm::mat4 _rotationMatrix;
 
-	ShaderProgram* _shader;
+	std::shared_ptr<ShaderProgram>  _shader;
 
 	GLint _modelViewProjUniform;
 

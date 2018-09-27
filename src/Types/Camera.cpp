@@ -1,13 +1,13 @@
 #include "Camera.h"
 
-Camera::Camera(ShaderProgram* shader)
+Camera::Camera(std::shared_ptr<ShaderProgram> shader)
 {
 	_shader = shader;
 	_modelViewProjUniform = _shader->GetUniformMatrixAttrLocation();
 	_projectionMatrix = glm::perspective(glm::radians(45.0f), 640/(float)480, 1.0f, 2000.0f);
 
 }
-void Camera::SetShader(ShaderProgram* shader)
+void Camera::SetShader(std::shared_ptr<ShaderProgram> shader)
 {
 	_shader = shader;
 	_modelViewProjUniform = _shader->GetUniformMatrixAttrLocation();

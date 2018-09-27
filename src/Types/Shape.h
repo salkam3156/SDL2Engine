@@ -7,7 +7,7 @@
 class Shape : public DrawableObject
 {
 public:
-	Shape(ShaderProgram* shader);
+	Shape(std::shared_ptr<ShaderProgram> shader);
 	~Shape() {}
 
 

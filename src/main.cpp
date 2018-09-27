@@ -23,8 +23,8 @@ int main(int argc, char* args[]) {
 	auto instance = Instance::GetInstance();
 	auto shaderProgram = ShaderProgram::MakeShaderProgram("res/vertex.shader", "res/fragment.shader");
 	shaderProgram->Use();
-	Shape shape(shaderProgram.get());
-	Camera camera(shaderProgram.get());
+	Shape shape(shaderProgram);
+	Camera camera(shaderProgram);
 	camera.SetTranslation(0, 0, -5);
 	camera.SetRotation(0, 0, 0, -5);
 	//camera.Update();
