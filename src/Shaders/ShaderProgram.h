@@ -23,12 +23,14 @@ public:
 	ShaderProgram(std::string vertexShaderFilePath,
 					std::string fragmentShaderFilePath);
 	bool Use();
+	void Disable();
 	GLint GetAttribute(std::string attribName);
 	GLuint GetPositionAttrLocation() const;
 	GLuint GetColorAttrLocation() const;
 	GLuint GetUniformMatrixAttrLocation() const;
 	GLuint GetProgramId() const;
 	void SetUniformMatrix(glm::mat4 matrix);
+	~ShaderProgram();
 
 private:
 	bool Ready();

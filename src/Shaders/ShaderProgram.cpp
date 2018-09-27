@@ -15,6 +15,19 @@ ShaderProgram::ShaderProgram(std::string vertexShaderFilePath, std::string fragm
 	}
 }
 
+void ShaderProgram::Disable()
+{
+	glUseProgram(0);
+}
+
+ShaderProgram::~ShaderProgram()
+{
+	Disable();
+	glDeleteShader(_vertexShaderId);
+	glDeleteShader(_fragmentShaderId);
+	glDeleteProgram(_compiledProgramId);
+}
+
 bool ShaderProgram::Use() {
 	if (_ready) {
 		glUseProgram(_compiledProgramId);
