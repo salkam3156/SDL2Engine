@@ -2,3 +2,14 @@
 /.settings
 .cproject
 .project
+
+
+#VS specific
+.vs/
+Yanush.sln
+Yanush.vcxproj
+Yanush.vcxproj.filters
+Yanush.vcxproj.user
+libCopy/
+packages.config
+packages/
