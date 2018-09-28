@@ -30,6 +30,8 @@ int main(int argc, char* args[]) {
 	camera.SetRotation(0, 0, 0, -5);
 	//camera.Update();
 	auto lastFrameTime = SDL_GetTicks();
+	shaderProgram->SetUniformVec4("uniColor", { 1.0, 1.0, 1.0, .0 });
+
 
 	while (instance->Running()) {
 
@@ -45,7 +47,7 @@ int main(int argc, char* args[]) {
 			if(SDL_GetTicks() - lastFrameTime > frameTime)
 			{
 				HandleInput(camera, &mouseX, &mouseY);
-				shaderProgram->SetUniformVec3("light_source", {mouseX, mouseY, 0});
+				shaderProgram->SetUniformVec2("light_source", {mouseX/(float)640, mouseY/ (float)480});
 				camera.Update();
 				glClear(GL_COLOR_BUFFER_BIT);
 				shape.Draw();
@@ -53,7 +55,7 @@ int main(int argc, char* args[]) {
 				lastFrameTime = SDL_GetTicks();
 				std::stringstream mousePos;
 				mousePos << "Mouse x: " << mouseX << "\t" << "Mouse y: " << mouseY;
-				std::cout << mousePos.str() << std::endl;
+				//std::cout << glGetString(GLU_ERROR) << std::endl;
 			}
 
 	}

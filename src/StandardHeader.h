@@ -6,14 +6,13 @@
 #include <sstream>
 #include <fstream>
 #include <vector>
-#include <jsoncpp/json/json.h>
 
-#include <SDL2/SDL.h>
+
+#include <SDL.h>
 #include "Types/Destructors.h"
 #include <GL/glew.h>
-#include <SDL2/SDL_opengl.h>
-#include <GL/glu.h>
-#include <GL/gl.h>
+#include <SDL_opengl.h>
+#include <GL/glew.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/matrix_transform.hpp>

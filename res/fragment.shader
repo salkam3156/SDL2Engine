@@ -1,14 +1,15 @@
 #version 330 core
 
-precision lowp float;
-
-in vec3 vert_out_color;
+precision highp float;
 
 out vec4 outColor;
+in vec4 position;
 
-uniform vec3 light_source = vec3(1.0f);
+uniform vec2 light_source;
+uniform vec4 uniColor;
 
 void main()
 {
-	outColor = vec4(light_source, 1.0);
+	float intensity = .7 / length(position - vec4(light_source.xy, 1.0, 1.0));
+	outColor = uniColor * intensity;
 }

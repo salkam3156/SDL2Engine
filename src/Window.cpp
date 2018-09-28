@@ -47,6 +47,7 @@ void Window::InitContext() {
 
 	_glContext = SDL_GL_CreateContext(_windowScreen);
 	SDL_GL_MakeCurrent(_windowScreen, _glContext);
+	glewExperimental = GL_TRUE;
 	try
 	{
 		if (_glContext == nullptr || glewInit() != 0) {
