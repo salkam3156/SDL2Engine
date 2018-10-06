@@ -22,7 +22,7 @@ int main(int argc, char* args[]) {
 	int framerate = 60;
 	int frameTime = 1000 /60;
 	auto instance = Instance::GetInstance();
-	auto shaderProgram = ShaderProgram::MakeShaderProgram("res/vertex.shader", "res/fragment.shader");
+	auto shaderProgram = ShaderProgram::MakeShaderProgram("res/lighting.vert", "res/lighting.frag");
 	shaderProgram->Use();
 	Shape shape(shaderProgram);
 	Camera camera(shaderProgram);
@@ -42,6 +42,13 @@ int main(int argc, char* args[]) {
 				{
 					instance->Stop();
 				}
+				if (event.type == SDL_WINDOWEVENT)
+				{
+					if (event.window.event == SDL_WINDOWEVENT_RESIZED)
+					{
+						glViewport(0, 0, event.window.data1, event.window.data2);
+					}
+				}
 			}
 
 			if(SDL_GetTicks() - lastFrameTime > frameTime)
@@ -57,7 +64,6 @@ int main(int argc, char* args[]) {
 				mousePos << "Mouse x: " << mouseX << "\t" << "Mouse y: " << mouseY;
 				//std::cout << glGetString(GLU_ERROR) << std::endl;
 			}
-
 	}
 
 	return retVal;
