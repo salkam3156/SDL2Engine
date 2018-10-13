@@ -1,5 +1,4 @@
 # YanushEngine
-Developing 3D game engine for Raspberry PI 3<br />
 
 Required libraries (Debian installation):<br />
 sudo apt-get install libglm-dev<br />
