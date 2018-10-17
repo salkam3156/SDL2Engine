@@ -3,7 +3,7 @@
 Shape::Shape(std::shared_ptr<ShaderProgram> shader) : DrawableObject()
 {
 	LoadVertices(_cube.GetVertices());
-	LoadElements(_cube.GetElements());
+	//LoadElements(_cube.GetElements());
 
 	glEnableVertexAttribArray(shader->GetPositionAttrLocation());
 	//TODO: make stride a member of the struct / implement shape/resource maker
