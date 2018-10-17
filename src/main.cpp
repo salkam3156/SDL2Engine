@@ -28,7 +28,6 @@ int main(int argc, char* args[]) {
 	Camera camera(shaderProgram);
 	camera.SetTranslation(0, 0, -5);
 	camera.SetRotation(0, 0, 0, -5);
-	//camera.Update();
 	auto lastFrameTime = SDL_GetTicks();
 	shaderProgram->SetUniformVec4("uniColor", { 1.0, 1.0, 1.0, .0 });
 
@@ -56,7 +55,7 @@ int main(int argc, char* args[]) {
 				HandleInput(camera, &mouseX, &mouseY);
 				shaderProgram->SetUniformVec2("light_source", {mouseX/(float)640, mouseY/ (float)480});
 				camera.Update();
-				glClear(GL_COLOR_BUFFER_BIT);
+				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 				shape.Draw();
 				instance->UpdateWindow();
 				lastFrameTime = SDL_GetTicks();

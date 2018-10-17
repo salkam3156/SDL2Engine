@@ -2,7 +2,7 @@
 
 void Window::ClearScreen() {
 	glClearColor(0,255,255,1);
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void Window::InitWindow(const std::string& windowTitle) {
@@ -60,7 +60,7 @@ void Window::InitContext() {
 			error << "SetSwapInterval [Enable V-Sync]: " << SDL_GetError();
 			throw WindowException(error.str());
 		}
-		glEnable(GL_DEPTH);
+		glEnable(GL_DEPTH_TEST);
 	}
 	catch(WindowException& ex)
 	{
