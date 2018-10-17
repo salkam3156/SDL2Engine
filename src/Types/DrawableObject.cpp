@@ -11,8 +11,7 @@ DrawableObject::DrawableObject() :
 bool DrawableObject::Draw() {
 	bool retVal = false;
 
-	if (_vertexArrayObj == 0 || _vertexBufferObj == 0
-			|| _elementBufferObj == 0) {
+	if (_vertexArrayObj == 0 || _vertexBufferObj == 0) {
 
 	} else {
 		glDrawArrays(GL_TRIANGLES, 0, _vertices.size());
