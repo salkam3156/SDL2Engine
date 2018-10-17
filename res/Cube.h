@@ -2,7 +2,7 @@
 #include "../src/StandardHeader.h"
 struct Cube
 {
-	GLfloat _vertexData[24] = {
+	std::vector<GLfloat> _vertexData = {
 		// front
 		-1.0, -1.0,  1.0,
 		 1.0, -1.0,  1.0,
@@ -15,7 +15,7 @@ struct Cube
 		-1.0,  1.0, -1.0,
 	};
 
-	GLushort _elementsData[36] = {
+	std::vector<GLuint> _elementsData = {
 		// front
 		0, 1, 2,
 		2, 3, 0,
@@ -38,12 +38,12 @@ struct Cube
 
 	std::vector<GLfloat> GetVertices()
 	{
-		return std::vector<GLfloat>(_vertexData, _vertexData + sizeof(_vertexData) / sizeof(_vertexData[0]));
+		return _vertexData;
 	}
 
 	std::vector<GLuint> GetElements()
 	{
-		return std::vector<GLuint>(_elementsData, _elementsData + sizeof(_elementsData) / sizeof(_elementsData[0]));
+		return _elementsData;
 	}
 
 };
