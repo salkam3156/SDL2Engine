@@ -81,13 +81,21 @@ void HandleInput(Camera& camera, int* mouseX, int* mouseY)
 	{
 		camera.Translate(0, 0, -0.5);
 	}
-	else if(keyState[SDL_SCANCODE_LEFT])
+	else if(keyState[SDL_SCANCODE_Q])
 	{
 		camera.Rotate(-1.5,0, 1, 0);
 	}
-	else if(keyState[SDL_SCANCODE_RIGHT])
+	else if(keyState[SDL_SCANCODE_W])
 	{
 		camera.Rotate(1.5,0, 1, 0);
+	}
+	else if (keyState[SDL_SCANCODE_LEFT])
+	{
+		camera.Translate(0.25, 0, 0);
+	}
+	else if (keyState[SDL_SCANCODE_RIGHT])
+	{
+		camera.Translate(-0.25, 0, 0);
 	}
 
 }
