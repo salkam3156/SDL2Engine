@@ -15,7 +15,7 @@ bool DrawableObject::Draw() {
 			|| _elementBufferObj == 0) {
 
 	} else {
-		glDrawElements(GL_TRIANGLES, _elements.size(), GL_UNSIGNED_INT, 0);
+		glDrawArrays(GL_TRIANGLES, 0, _vertices.size());
 		retVal = true;
 	}
 
