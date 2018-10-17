@@ -36,6 +36,7 @@ Window::Window(const std::string& windowTitle) :
 
 void Window::Update() {
 	SDL_GL_SwapWindow(_windowScreen);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 Window::~Window() {
