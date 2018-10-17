@@ -60,6 +60,7 @@ void Window::InitContext() {
 			error << "SetSwapInterval [Enable V-Sync]: " << SDL_GetError();
 			throw WindowException(error.str());
 		}
+		glEnable(GL_DEPTH);
 	}
 	catch(WindowException& ex)
 	{
