@@ -1,8 +1,9 @@
 #pragma once
 #include "../StandardHeader.h"
 #include "../Shaders/ShaderProgram.h"
+#include "../Interfaces/IEntity.h"
 
-class Camera
+class Camera : public IEntity
 {
 public:
 	//TODO: shaderprogram into shared ptr / container

@@ -1,8 +1,8 @@
 #pragma once
 #include "../StandardHeader.h"
-#include "../Interfaces/IDrawable.h"
+#include "../Interfaces/IEntity.h"
 
-class DrawableObject: public IDrawable {
+class DrawableObject: public IEntity {
 public:
 	DrawableObject();
 	bool Draw();
