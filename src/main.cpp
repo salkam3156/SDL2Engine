@@ -49,11 +49,11 @@ int main(int argc, char* args[]) {
 
 			if(SDL_GetTicks() - lastFrameTime > frameTime)
 			{
-				auto command = inputHandler.Handle();
-				if (command)
+				if (auto command = inputHandler.Handle())
 				{
 					command->Exectue(camera);
 				}
+				SDL_GetMouseState(&mouseX, &mouseY);
 				shaderProgram->SetUniformVec2("light_source", {mouseX/(float)640, mouseY/ (float)480});
 				camera.Update();
 				
