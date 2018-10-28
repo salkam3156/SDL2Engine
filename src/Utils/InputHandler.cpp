@@ -1,29 +1,18 @@
 #include "InputHandler.h"
+#include "../Actions/MoveCommand.h"
 
 ICommand::Ptr InputHanlder::Handle()
 {
-	
 	auto keyState = SDL_GetKeyboardState(nullptr);
 
-	if (keyState[SDL_SCANCODE_UP])
+	if (keyState[SDL_SCANCODE_UP] || keyState[SDL_SCANCODE_DOWN] || keyState[SDL_SCANCODE_LEFT] || keyState[SDL_SCANCODE_RIGHT])
 	{
-
+		return std::make_unique<MoveCommand>();
 	}
-	else if (keyState[SDL_SCANCODE_DOWN])
+	else if (keyState[SDL_SCANCODE_Q] || keyState[SDL_SCANCODE_W])
 	{
-	}
-	else if (keyState[SDL_SCANCODE_Q])
-	{
-	}
-	else if (keyState[SDL_SCANCODE_W])
-	{
-	}
-	else if (keyState[SDL_SCANCODE_LEFT])
-	{
-	}
-	else if (keyState[SDL_SCANCODE_RIGHT])
-	{
+		//TODO: turn command
 	}
 
-	
+	return {};
 }
