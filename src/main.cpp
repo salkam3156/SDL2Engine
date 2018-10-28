@@ -23,8 +23,7 @@ int main(int argc, char* args[]) {
 	shaderProgram->Use();
 	Shape shape(shaderProgram);
 	Camera camera(shaderProgram);
-	camera.SetTranslation(0, 0, -5);
-	camera.SetRotation(0, 0, 0, -5);
+	
 	auto lastFrameTime = SDL_GetTicks();
 	shaderProgram->SetUniformVec4("uniColor", { 1.0, 1.0, 1.0, .0 });
 	InputHanlder inputHandler = {};

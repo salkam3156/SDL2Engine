@@ -5,6 +5,8 @@ Camera::Camera(std::shared_ptr<ShaderProgram> shader)
 	_shader = shader;
 	_modelViewProjUniform = _shader->GetUniformMatrixAttrLocation();
 	_projectionMatrix = glm::perspective(glm::radians(45.0f), 640/(float)480, 1.0f, 2000.0f);
+	SetTranslation(0, 0, -5);
+	SetRotation(0, 0, 0, -5);
 
 }
 void Camera::SetShader(std::shared_ptr<ShaderProgram> shader)
