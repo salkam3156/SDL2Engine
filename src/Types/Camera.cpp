@@ -48,3 +48,37 @@ void Camera::UpdateWorldViewMatrix()
 {
 	_viewMatrix = _rotationMatrix * _translationMatrix;
 }
+
+void Camera::Move()
+{
+	auto keyState = SDL_GetKeyboardState(nullptr);
+	
+	if(keyState[SDL_SCANCODE_UP])
+	{
+		Translate(0, 0, 0.5);
+	}
+	else if(keyState[SDL_SCANCODE_DOWN])
+	{
+		Translate(0, 0, -0.5);
+	}
+	else if(keyState[SDL_SCANCODE_Q])
+	{
+		Rotate(-1.5,0, 1, 0);
+	}
+	else if(keyState[SDL_SCANCODE_W])
+	{
+		Rotate(1.5,0, 1, 0);
+	}
+	else if (keyState[SDL_SCANCODE_LEFT])
+	{
+		Translate(0.25, 0, 0);
+	}
+	else if (keyState[SDL_SCANCODE_RIGHT])
+	{
+		Translate(-0.25, 0, 0);
+	}
+}
+
+void Camera::Turn()
+{
+}

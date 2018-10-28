@@ -17,4 +17,10 @@ private:
 	GLint _colorAttr;
 	Quad _quad;
 	Cube _cube;
+
+	// Inherited via DrawableObject
+	virtual void Move() override;
+
+	// Inherited via DrawableObject
+	virtual void Turn() override;
 };

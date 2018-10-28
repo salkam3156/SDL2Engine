@@ -4,17 +4,14 @@
 #include "Types/Shape.h"
 #include "Types/Camera.h"
 #include "../res/Quad.h"
+#include "Utils/InputHandler.h"
 
 //TODO: create overall logging and exception classes , and do logging on exception ctor invocation
 //TODO: wrap stuff into unique ptrs
 //TODO: resource factory
 //TODO: platform checker, and dynamically assigning shader versions (modify #version ?) in the shader files / shader generator
 //TODO: model loader
-//TODO: input handler
 //TODO: tweening for input
-
-void HandleInput(Camera& camera, int* mouseX, int* mouseY);
-
 int main(int argc, char* args[]) {
 	int mouseX = 0;
 	int mouseY = 0;
@@ -30,6 +27,7 @@ int main(int argc, char* args[]) {
 	camera.SetRotation(0, 0, 0, -5);
 	auto lastFrameTime = SDL_GetTicks();
 	shaderProgram->SetUniformVec4("uniColor", { 1.0, 1.0, 1.0, .0 });
+	InputHanlder inputHandler = {};
 
 
 	while (instance->Running()) {
@@ -52,50 +50,19 @@ int main(int argc, char* args[]) {
 
 			if(SDL_GetTicks() - lastFrameTime > frameTime)
 			{
-				HandleInput(camera, &mouseX, &mouseY);
+				auto command = inputHandler.Handle();
+				if (command)
+				{
+					command->Exectue(camera);
+				}
 				shaderProgram->SetUniformVec2("light_source", {mouseX/(float)640, mouseY/ (float)480});
 				camera.Update();
 				
 				shape.Draw();
 				instance->UpdateWindow();
 				lastFrameTime = SDL_GetTicks();
-				std::stringstream mousePos;
-				mousePos << "Mouse x: " << mouseX << "\t" << "Mouse y: " << mouseY;
-				//std::cout << glGetString(GLU_ERROR) << std::endl;
 			}
 	}
 
 	return retVal;
-}
-
-void HandleInput(Camera& camera, int* mouseX, int* mouseY)
-{
-	auto keyState = SDL_GetKeyboardState(nullptr);
-	SDL_GetMouseState(mouseX, mouseY);
-
-	if(keyState[SDL_SCANCODE_UP])
-	{
-		camera.Translate(0, 0, 0.5);
-	}
-	else if(keyState[SDL_SCANCODE_DOWN])
-	{
-		camera.Translate(0, 0, -0.5);
-	}
-	else if(keyState[SDL_SCANCODE_Q])
-	{
-		camera.Rotate(-1.5,0, 1, 0);
-	}
-	else if(keyState[SDL_SCANCODE_W])
-	{
-		camera.Rotate(1.5,0, 1, 0);
-	}
-	else if (keyState[SDL_SCANCODE_LEFT])
-	{
-		camera.Translate(0.25, 0, 0);
-	}
-	else if (keyState[SDL_SCANCODE_RIGHT])
-	{
-		camera.Translate(-0.25, 0, 0);
-	}
-
 }

@@ -27,4 +27,10 @@ private:
 	GLint _modelViewProjUniform;
 
 	void UpdateWorldViewMatrix();
+
+	// Inherited via IEntity
+	virtual void Move() override;
+
+	// Inherited via IEntity
+	virtual void Turn() override;
 };
