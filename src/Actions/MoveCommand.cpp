@@ -2,5 +2,5 @@
 
 void MoveCommand::Exectue(IEntity & entity)
 {
-
+	entity.Move();
 }
